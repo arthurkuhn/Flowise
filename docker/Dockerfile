@@ -2,12 +2,20 @@ FROM node:18-alpine
 
 USER root
 
+RUN apk add --no-cache libc6-compat
 RUN apk add --no-cache git
 RUN apk add --no-cache python3 py3-pip make g++
 
-# You can install a specific version like: flowise@1.0.0
-RUN npm install -g flowise
+# Create app directory
+WORKDIR /usr/src/app
 
-WORKDIR /data
+# Bundle app source
+COPY . .
 
-CMD "flowise"
+RUN yarn install
+
+RUN yarn build
+
+EXPOSE 8080
+
+CMD ["yarn", "start"]

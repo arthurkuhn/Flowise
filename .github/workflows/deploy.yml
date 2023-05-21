@@ -3,11 +3,7 @@
 
 name: Deploy to Azure Web App
 
-on:
-  push:
-      branches:
-          - main
-
+on: workflow_dispatch
 env:
   PACKAGE_PATH: "."
   PACKAGE_ZIP_NAME: "release.zip"
